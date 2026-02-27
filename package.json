@@ -1,0 +1,22 @@
+{
+  "name": "deepflow-proto",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Chrome extension to preserve context and protect deep work flow",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@wxt-dev/module-react": "latest",
+    "typescript": "^5.5.4",
+    "wxt": "latest"
+  }
+}
