@@ -5,6 +5,9 @@ One-click "Enter Focus Mode" auto-saves everything — interrupt as much as you 
 
 Built as a 2-day MVP with WXT, React, and TypeScript.( It's still in prototype state).
 
+## Demo
+▶️ [Watch Demo Video](https://drive.google.com/file/d/1B0K13YE20oVKzU2_CZw8ASQZplcMFj90/view?usp=drivesdk)
+
 ## Features in this Prototype
 - Enter Focus Mode → auto-saves tabs with smart note from active tab title
 - Manual save with custom note
