@@ -9,6 +9,11 @@ export default defineConfig({
       'tabs',
       'storage',
       'activeTab',
+      'notifications',
+    ],
+
+    host_permissions: [
+      'https://*.supabase.co/*',
     ],
 
     commands: {
