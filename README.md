@@ -1,89 +1,148 @@
-# DeepFlow 
+# DeepFlow
 
-**DeepFlow** is a Chrome extension that preserves your browser context (open tabs + optional note) so you never lose your flow during deep work.  
-One-click "Enter Focus Mode" auto-saves everything — interrupt as much as you want — then restore instantly later.
+**DeepFlow** is a Chrome extension that preserves your browser context so you never lose your flow during deep work.
 
-Built as a 2-day MVP with WXT, React, and TypeScript.( It's still in prototype state v2).
+Save your open tabs with an optional note, restore them later, share working context with teammates, and track your deep-work momentum through streaks and badges.
 
-## Demo
-▶️ [Watch Demo Video](https://drive.google.com/file/d/1B0K13YE20oVKzU2_CZw8ASQZplcMFj90/view?usp=drivesdk)
+Built with WXT, React, TypeScript, Chrome Extension APIs, and Supabase.
 
-## Features in this Prototype
-- Enter Focus Mode → auto-saves tabs with smart note from active tab title
-- Manual save with custom note
-- Restore last session or any saved one
-- View, restore, or delete saved sessions
-- Clean popup UI with loading states & basic error handling
+## Features
+
+- Enter Focus Mode and auto-save your current browser context
+- Save open tabs manually with a custom note
+- Restore saved sessions
+- Share saved contexts with another DeepFlow user by email
+- Receive shared contexts in a Shared inbox
+- Restore shared sessions
+- Save a shared session as your own context
+- Append your current tabs onto a shared session and create a derived context
+- Share derived contexts onward
+- Track activity, streaks, and badges
+- Local fallback with `chrome.storage.local`
+- Supabase-backed auth, sync, collaboration, and activity storage
 
 ## Prerequisites
-- Google Chrome (or any Chromium-based browser)
-- Node.js 18+ (LTS recommended) + npm (download from https://nodejs.org)
-- Git (to clone the repo)
 
-## Step-by-Step: How to Install and Run
+- Google Chrome or another Chromium-based browser
+- Node.js 18+ and npm
+- Git
+- A Supabase project
+
+## Setup
 
 ### 1. Clone the Repository
-Open PowerShell, Command Prompt, or Terminal and run:
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/deepflow-proto.git
 cd deepflow-proto
 ```
-Replace YOUR_USERNAME with your actual GitHub username.
+
+Replace `YOUR_USERNAME` with your GitHub username or the correct repository owner.
 
 ### 2. Install Dependencies
-In the project folder run , 
-```
+
+```bash
 npm install
 ```
-### 3.Start the development server
 
+### 3. Configure Supabase
+
+Create a `.env` file in the project root:
+
+```env
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
+
+You can find these values in Supabase under:
+
+```txt
+Project Settings -> Data API
+```
+
+Use the project URL without `/rest/v1/`.
+
+### 4. Run the Database Schema
+
+Open Supabase SQL Editor and run:
+
+```txt
+supabase/schema.sql
+```
+
+This creates the required tables, RLS policies, auth profile trigger, and starter badges.
+
+### 5. Start the Development Server
+
+```bash
 npm run dev
 ```
 
-## 4.Load the extension in crome
+### 6. Load the Extension in Chrome
 
-1.Open Google Chrome.
+1. Open Chrome.
+2. Go to `chrome://extensions/`.
+3. Turn on Developer mode.
+4. Click Load unpacked.
+5. Select:
 
-2.Go to: ```chrome://extensions/```
+```txt
+.output/chrome-mv3-dev
+```
 
-3.Turn on Developer mode (toggle in top-right corner).
+6. Pin DeepFlow from the Chrome extensions menu.
 
-4.Click Load unpacked.
+## How to Test
 
-5.Navigate to your project folder and select the build directory:
+### Local Context Saving
 
-Full path example:
-```C:\Users\Varsha\DeepFlow-proto\DeepFlow\.output\chrome-mv3-dev```
-Select the folder itself (the one containing manifest.json).
+1. Open several tabs.
+2. Open the DeepFlow popup.
+3. Save a context.
+4. Restore it.
+5. Delete it.
 
-6.Click Select Folder / Open.
+This should work even before signing in.
 
-7.The extension should appear in the list (named "deepflow-proto" or similar).
+### Supabase Auth
 
-8.Click the puzzle piece icon in Chrome toolbar → pin DeepFlow (the extension icon).
+1. Open the Account page from the popup header.
+2. Sign up or sign in.
+3. Save a context.
+4. Confirm a row appears in Supabase `sessions`.
 
-## 5. How to Use / Test DeepFlow
+### Sharing
 
-Open several tabs (code, docs, Slack, YouTube etc).
+1. Sign in as User A.
+2. Save a context.
+3. Share it with User B's email.
+4. Sign in as User B.
+5. Open the Shared tab.
+6. Restore the shared context.
+7. Save it as your own or append current tabs.
 
-Click the DeepFlow extension icon in the toolbar.
+### Streaks and Badges
 
-Enter Focus Mode:\
-Click the orange button → it auto-saves your tabs + generates a smart note.
-You’ll see "Focus Active 🔥".
+Perform actions such as saving, restoring, sharing, entering focus mode, and appending shared contexts. Then open the Streaks tab to see activity, contribution grid updates, and unlocked badges.
 
-Simulate interruption: close tabs, switch windows, do other stuff.
+## Supabase Tables
 
-Re-open the popup:
-Click Restore Last Session (quick one-click) or
-Pick a session from the list → click Restore.
+The schema creates:
 
-Tabs reopen exactly as saved.
+- `profiles`
+- `sessions`
+- `shared_sessions`
+- `activity_events`
+- `daily_activity`
+- `badges`
+- `user_badges`
 
 ## Tech Stack
 
-WXT (Chrome extension framework, Manifest V3) , 
-React + TypeScript , 
-Chrome APIs: tabs, storage .
+- WXT
+- React
+- TypeScript
+- Chrome Extension APIs
+- Supabase Auth
+- Supabase Postgres
+- Supabase Realtime
